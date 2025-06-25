@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 export default function Home() {
-  const { user } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
    useEffect(() => {
     axios.get(`${import.meta.env.VITE_API_URL}/api/auth/me`, { withCredentials: true })
       .then(res => setUser(res.data))
       .catch(() => setUser(null));
-  }, []);
+  }, [setUser]);
   const avatar = user?.avatar || '/default-avatar.png';
 
   return (
