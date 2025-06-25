@@ -10,13 +10,18 @@ export default defineConfig({
   ],
   preview: {
       allowedHosts: [
-        '*'
+        'devconnect-jun25-1047am-40s-backend-varsha-vishwakarma-beta.platform.beta.sidepro.app'
       ]
     },
    server: {
-    proxy: {
-      '/api': 'http://localhost:5000',
-    },
+  proxy: {
+    '/api': {
+      target: 'https://devconnect-jun25-1047am-40s-backend-varsha-vishwakarma-beta.platform.beta.sidepro.app',
+      changeOrigin: true,
+      secure: false,
+    }
   }
+}
+
    
 })
