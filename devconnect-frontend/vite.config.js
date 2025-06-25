@@ -13,4 +13,9 @@ export default defineConfig({
       '/api': 'http://localhost:5000',
     },
   },
+   preview: {
+      allowedHosts: [
+        'devconnect-jun25-1047am-40s-backend-varsha-vishwakarma-beta.platform.beta.sidepro.app'
+      ]
+    }
 })
