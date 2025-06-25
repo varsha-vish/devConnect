@@ -12,27 +12,21 @@ import userRoutes from './routes/user.js';
 dotenv.config();
 
 const app = express();
+if (!process.env.SESSION_SECRET || !process.env.MONGO_URI) {
+  console.error('Missing environment variables. Please set SESSION_SECRET and MONGO_URI.');
+  process.exit(1);
+}
+app.set('trust proxy', 1);
 
-app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
+app.use(cors({ 
+  origin: [
+    'http://localhost:5173',
+    'https://devconnect-jun25-1047am-40s-frontend-varsha-vishwakarma-beta.platform.beta.sidepro.app'
+  ],
+  credentials: true
+}));
 app.use(cookieParser());
 app.use(express.json());
-app.use(
-  session({
-    secret: 'devconnect_secret',
-    resave: false,
-    saveUninitialized: false,
-  })
-);
-app.use(passport.initialize());
-app.use(passport.session());
-
-app.use('/api/auth', authRoutes);
-app.use('/api/users', userRoutes);
-
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => app.listen(process.env.PORT || 5000, () => console.log('Mongo Server running')))
-  .catch((err) => console.error(err));
 
 app.use(
   session({
@@ -46,4 +40,13 @@ app.use(
   })
 );
 
-app.set('trust proxy', 1);
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
+
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => app.listen(process.env.PORT || 5000, () => console.log('Mongo Server running')))
+  .catch((err) => console.error(err));
