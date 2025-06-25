@@ -33,3 +33,17 @@ mongoose
   .connect(process.env.MONGO_URI)
   .then(() => app.listen(process.env.PORT || 5000, () => console.log('Mongo Server running')))
   .catch((err) => console.error(err));
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: true,         // Must be true for HTTPS
+      sameSite: 'none',     // Needed for cross-origin cookies
+    },
+  })
+);
+
+app.set('trust proxy', 1);
