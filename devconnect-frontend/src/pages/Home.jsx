@@ -6,7 +6,7 @@ import axios from 'axios';
 export default function Home() {
   const { user } = useContext(AuthContext);
    useEffect(() => {
-    axios.get('/api/auth/me', { withCredentials: true })
+    axios.get(`${import.meta.env.VITE_API_URL}/api/auth/me`, { withCredentials: true })
       .then(res => setUser(res.data))
       .catch(() => setUser(null));
   }, []);
