@@ -11,12 +11,13 @@ function App() {
   const { user, setUser } = useContext(AuthContext);
 
   useEffect(() => {
+    console.log(import.meta.env.VITE_API_URL);
     axios.get(`${import.meta.env.VITE_API_URL}/api/auth/me`, { withCredentials: true })
       .then(res => setUser(res.data))
       .catch(() => setUser(null));
   }, []);
 
-  const avatar = user?.avatar || '/default-avatar.png';
+  // const avatar = user?.avatar || '/default-avatar.png';
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
