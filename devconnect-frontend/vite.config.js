@@ -8,14 +8,15 @@ export default defineConfig({
     react(),
     tailwindcss()
   ],
+  preview: {
+      allowedHosts: [
+        '*'
+      ]
+    },
    server: {
     proxy: {
       '/api': 'http://localhost:5000',
     },
-  },
-   preview: {
-      allowedHosts: [
-        'devconnect-jun25-1047am-40s-backend-varsha-vishwakarma-beta.platform.beta.sidepro.app'
-      ]
-    }
+  }
+   
 })
